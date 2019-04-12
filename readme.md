@@ -1,5 +1,9 @@
-wsp.wiki
+fst.wiki
 ========
+
+*soft-manual* fork of [wsp.wiki](https://github.com/hackersanddesigners/wsp-wiki), ahem.
+
+~ * _ * _ * _ * _ ~
 
 # wsp.wiki
 
