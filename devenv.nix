@@ -7,7 +7,7 @@
   '';
 
   languages.php.enable = true;
-  languages.php.version = "8.2";
+  languages.php.version = "7.0";
   languages.php.extensions = [
     "bz2"
     "zlib"
