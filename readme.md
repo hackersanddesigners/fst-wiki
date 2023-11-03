@@ -32,6 +32,34 @@ Note: the wiki runs on a digital ocean server, and I extensively followed the do
 
 The setup consists of Ubuntu 16.04.2 LTS and nginx (as it seems to work better with `node.js`). [Let's Encrypt](https://letsencrypt.org) for the SSL certificate.
 
+### Posthumous notes on installing PHP 7.0 on Debian 11 or newer
+
+The last working version of the wiki software run on PHP 7 (maybe 7.2). At of <2023-11-03>, this is not particularly easily accessible anymore on Debian. 
+
+Following some notes on which commands to run:
+
+```
+# let's install PHP 7.0
+$ sudo apt-cache policy php
+
+$ sudo apt -y install apt-transport-https lsb-release ca-certificates curl wget
+$ sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+$ sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+
+# update apt so we can finally install it
+$ sudo apt update
+
+# install PHP 7.0 and necessary libraries
+$ sudo apt install php7.0 php7.0-common php7.0-xml php7.0-gd php7.0-mbstring php7.0-mcrypt php7.0-intl
+
+# check if PHP is actually 7.0 and that it has no error in terms of missing libraries
+$ php -v
+
+# enbale apache mod_php to run php 7.0
+$ sudo a2enmod php7.0
+$ sudo systemctl restart apache2
+```
+
 ### Install DokuWiki
 
 As stated above, I presume you already have a vps set up, and running a unix-flavored distro. Often times, many hosting providers offer the option of a one-click installation of popular software, and DokuWiki is usually one of them. 
