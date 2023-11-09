@@ -111,7 +111,7 @@ You’ll get a new `APIKEY.txt` in the same folder, copy that text on line 100 o
 
 ```
 $instance = new EtherpadLite\Client('APIKEY', $baseUrl);
-````
+```
 
 If you are working locally, you can simply do 
 
@@ -156,6 +156,60 @@ Once you setup all the dokuwiki plugins listed above, you can use them by follow
 	`{{pdfjs>:ns:document.pdf}}`
 
 → [ref](https://www.dokuwiki.org/plugin:pdfjs?s[]=pdf&s[]=embed)
+
+### Archive Etherpad
+
+We can archive the pads in our Etherpad instance, by using [etherpump](https://git.vvvvvvaria.org/varia/etherpump/issues/22).
+
+First make sure to have Python (> 3.6) installed:
+
+```
+sudo apt install python3
+sudo apt install python3-pip
+sudo apt install python3.11-venv
+```
+
+Then let's install `etherpump` in a Python virtual environment (Debian screams that we should do it):
+
+```
+python3 -m venv etherpump-venv
+source etherpump-venv/bin/activate
+
+pip install etherpump
+```
+
+There is a semi-known error during the installation, due to a dependency version mismatching what's needed (see <https://git.vvvvvvaria.org/varia/etherpump/issues/22>).
+
+So we install the correct, necessary dependency:
+
+```
+pip install markupsafe==2.0.1
+```
+
+Let's make a folder where to download the archive of our Etherpad:
+
+```
+mkdir -p fst-etherpad-dump
+```
+
+Then initialize etherpump and follow the interactive setup (add `URL` and `APIKEY` for / from desired Etherpad):
+
+```
+etherpump init
+```
+
+Finally, we download a copy of all our pads in `text` (txt), `meta` (json) and `html` format:
+
+```
+etherpump pull --text --meta --html
+```
+
+this command saves everything into a `./p` subfolder.
+
+Run `etherpump pull --help` to get an overview of the available options that you can use to download the Etherpad data.
+
+
+```
 
 ### Add an iframe
 
